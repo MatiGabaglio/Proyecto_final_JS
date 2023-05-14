@@ -40,11 +40,21 @@ for(let i=1; i<(productosBase.length+1); i++){
 })
 }
 
+setInterval(()=>{
+    fetch("https://criptoya.com/api/dolar")
+    .then(response => response.json())
+    .then(({blue}) => {
+        valorDolar = blue
+    })
+    .catch(error => console.log("Error al cargar el valor del dolar"))
+})
+
 const totalAPagar = ()=>{
     let total = 0
     compra.forEach((elemento)=>{
         total += (elemento.price*elemento.cantidad)
     })
+    const compraToralUSD = total/valorDolar
     const compraTotal = document.getElementById("precioFinal")
-    compraTotal.innerHTML=`Precio total: $ ${total}`
+    compraTotal.innerHTML=`Precio total: $ ${total} o $ ${compraToralUSD.toFixed(2)} USD`
 }
