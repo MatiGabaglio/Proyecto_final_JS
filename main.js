@@ -13,9 +13,10 @@ let compra = JSON.parse(localStorage.getItem("compra"))|| []
 const agregarCompra = (productoComprado)=>{
     // agrega productos al carrito
     compra.push(productoComprado)
-    //compraTotalRender()
 }
 
+
+//Funcion para crear y renderizar los productos
 for(let i=1; i<(productosBase.length+1); i++){
     const descripcionPrecio = document.getElementById(`precio${i}`)
     descripcionPrecio.innerHTML=`$ ${productosBase[i-1].price}`
@@ -40,6 +41,14 @@ for(let i=1; i<(productosBase.length+1); i++){
 })
 }
 
+//funcion para generar el SweetAlert del boton de compra
+const alert = document.getElementById("compraFinalBtn");
+
+alert.addEventListener("click",()=>{
+    Swal.fire("Compra realizada exitosamente");
+})
+
+//Funcion para tomar el valor del dolar
 setInterval(()=>{
     fetch("https://criptoya.com/api/dolar")
     .then(response => response.json())
@@ -49,6 +58,7 @@ setInterval(()=>{
     .catch(error => console.log("Error al cargar el valor del dolar"))
 })
 
+//Funcion para mostrar y calcular el total a pagar
 const totalAPagar = ()=>{
     let total = 0
     compra.forEach((elemento)=>{
